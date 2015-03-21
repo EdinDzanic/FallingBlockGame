@@ -9,6 +9,7 @@ namespace FallingBlockGame
     {
         private int[][] grid;
         public int[][] Grid { get { return grid; } }
+        
         public int X { get; set; }
         public int Y { get; set; }
 
