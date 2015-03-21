@@ -20,7 +20,7 @@ namespace engine
 
     }
 
-    public class TextureAtlas
+    public class TextureAtlas : ICloneable
     {
 
         private int columns;
@@ -80,6 +80,16 @@ namespace engine
             Rectangle sourceRectangle = new Rectangle(width * CurrentFrame.Y, height * CurrentFrame.X, width, height);
             
             return sourceRectangle;
+        }
+
+        public object Clone()
+        {
+            TextureAtlas copy = new TextureAtlas(Texture, rows, columns);
+            copy.Height = Height;
+            copy.Width = Width;
+            copy.CurrentFrame = CurrentFrame;
+
+            return copy;
         }
     }
 }
