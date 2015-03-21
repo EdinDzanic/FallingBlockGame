@@ -10,11 +10,13 @@ namespace FallingBlockGame
     {
         private Field field;
         private int blockSize;
+        private TextureAtlas textureAtlas;
 
-        public FieldGameObjectBuilder(Field field, int blockSize)
+        public FieldGameObjectBuilder(Field field, int blockSize, TextureAtlas textureAtlas)
         {
             this.field = field;
             this.blockSize = blockSize;
+            this.textureAtlas = textureAtlas;
         }
 
         public List<GameObject> CreateGameObjects()
@@ -28,12 +30,15 @@ namespace FallingBlockGame
                     int x = field.Grid[rowIndex][columnIndex];
                     int y = field.Grid[rowIndex][columnIndex];
                     
-                    GameObject gameObject = new GameObject();
-                    gameObject.PositionComponent = new PositionComponent(
+                    PositionComponent position = new PositionComponent(
                         field.X + blockSize * x,  
                         field.Y + blockSize * y);
 
+                    TextureAtlas copyTextureAtlas = textureAtlas.Clone() as TextureAtlas;
+                    DrawableComponent drawable = new DrawableComponent(copyTextureAtlas, position);
 
+                    GameObject gameObject = new GameObject(position, drawable);
+                    gameObjects.Add(gameObject);
                 }
             }
 
