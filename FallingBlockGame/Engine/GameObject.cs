@@ -7,7 +7,7 @@ using System.Text;
 
 #endregion
 
-namespace Ts
+namespace engine
 {
     public class GameObject
     {
