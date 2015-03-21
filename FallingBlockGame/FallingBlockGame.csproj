@@ -49,6 +49,7 @@
     <Compile Include="Engine\InputManager.cs" />
     <Compile Include="Engine\PositionComponent.cs" />
     <Compile Include="FieldGameObjectBuilder.cs" />
+    <Compile Include="GameplayState.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Engine\RenderManager.cs" />
