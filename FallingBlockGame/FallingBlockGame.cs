@@ -23,6 +23,9 @@ namespace FallingBlockGame
         private RenderManager renderManager;
         public RenderManager RenderManager { get { return renderManager; } }
 
+        private GameStateManager gameStateManager;
+        public GameStateManager GameStateManager { get { return gameStateManager; } }
+
         public FallingBlockGame()
             : base()
         {
@@ -41,6 +44,9 @@ namespace FallingBlockGame
         {
             // TODO: Add your initialization logic here
             renderManager = new RenderManager(new Graphics(GraphicsDevice));
+            
+            gameStateManager = new GameStateManager((Game)this);
+            gameStateManager.Add("gameplay", new GameplayState(this));
             
             base.Initialize();
         }

@@ -11,7 +11,7 @@ using Microsoft.Xna.Framework.GamerServices;
 
 namespace engine
 {
-    class GameStateManager
+    public class GameStateManager
     {
         // map of states
         private Dictionary<string, IGameState> gameStates;

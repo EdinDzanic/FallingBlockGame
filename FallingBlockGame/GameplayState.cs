@@ -11,7 +11,7 @@ namespace FallingBlockGame
     public class GameplayState : IGameState
     {
         private const int BLOCK_SIZE = 32;
-        private const string BLOCK_TEXTURE_ATLAS = "blocks";
+        private const string BLOCK_TEXTURE_ATLAS = "dark";
 
         private FallingBlockGame game;
         private FieldGameObjectBuilder fieldGameObjectBuilder;
@@ -33,12 +33,10 @@ namespace FallingBlockGame
         
         public void Update(GameTime gameTime)
         {
-            throw new NotImplementedException();
         }
 
         public void Draw(GameTime gameTime)
         {
-            throw new NotImplementedException();
         }
     }
 }

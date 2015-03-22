@@ -6,7 +6,7 @@ using Microsoft.Xna.Framework;
 
 namespace engine
 {
-    interface IGameState
+    public interface IGameState
     {
         void Update(GameTime gameTime);
         void Draw(GameTime gameTime);

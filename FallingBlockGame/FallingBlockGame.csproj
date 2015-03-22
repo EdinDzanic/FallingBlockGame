@@ -35,26 +35,52 @@
     <ApplicationIcon>Icon.ico</ApplicationIcon>
   </PropertyGroup>
   <ItemGroup>
-    <Compile Include="Engine\Drawable2D.cs" />
-    <Compile Include="Engine\DrawableComponent.cs" />
+    <Compile Include="Engine\Drawable2D.cs">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Compile>
+    <Compile Include="Engine\DrawableComponent.cs">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Compile>
     <Compile Include="FallingBlockGame.cs" />
     <Compile Include="Field.cs" />
-    <Compile Include="Engine\GameObject.cs" />
-    <Compile Include="Engine\GameStateManager.cs" />
-    <Compile Include="Engine\Graphics.cs" />
-    <Compile Include="Engine\IDrawable.cs" />
-    <Compile Include="Engine\IDrawableComponent.cs" />
-    <Compile Include="Engine\IGameObjectBuilder.cs" />
-    <Compile Include="Engine\IGameState.cs" />
-    <Compile Include="Engine\InputManager.cs" />
-    <Compile Include="Engine\PositionComponent.cs" />
+    <Compile Include="Engine\GameObject.cs">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Compile>
+    <Compile Include="Engine\GameStateManager.cs">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Compile>
+    <Compile Include="Engine\Graphics.cs">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Compile>
+    <Compile Include="Engine\IDrawable.cs">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Compile>
+    <Compile Include="Engine\IDrawableComponent.cs">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Compile>
+    <Compile Include="Engine\IGameObjectBuilder.cs">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Compile>
+    <Compile Include="Engine\IGameState.cs">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Compile>
+    <Compile Include="Engine\InputManager.cs">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Compile>
+    <Compile Include="Engine\PositionComponent.cs">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Compile>
     <Compile Include="FieldGameObjectBuilder.cs" />
     <Compile Include="GameLogic.cs" />
     <Compile Include="GameplayState.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Engine\RenderManager.cs" />
-    <Compile Include="Engine\TextureAtlas.cs" />
+    <Compile Include="Engine\RenderManager.cs">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Compile>
+    <Compile Include="Engine\TextureAtlas.cs">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Compile>
   </ItemGroup>
   <ItemGroup>
     <Reference Include="MonoGame.Framework">
