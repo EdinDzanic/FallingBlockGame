@@ -47,7 +47,8 @@ namespace FallingBlockGame
             
             gameStateManager = new GameStateManager((Game)this);
             gameStateManager.Add("gameplay", new GameplayState(this));
-            
+            gameStateManager.ChangeState("gameplay");
+
             base.Initialize();
         }
 
@@ -82,7 +83,7 @@ namespace FallingBlockGame
             if (GamePad.GetState(PlayerIndex.One).Buttons.Back == ButtonState.Pressed || Keyboard.GetState().IsKeyDown(Keys.Escape))
                 Exit();
 
-            // TODO: Add your update logic here
+            gameStateManager.Update(gameTime);
 
             base.Update(gameTime);
         }
@@ -93,10 +94,8 @@ namespace FallingBlockGame
         /// <param name="gameTime">Provides a snapshot of timing values.</param>
         protected override void Draw(GameTime gameTime)
         {
-            GraphicsDevice.Clear(Color.CornflowerBlue);
-
-            // TODO: Add your drawing code here
-
+            gameStateManager.Draw(gameTime);
+            
             base.Draw(gameTime);
         }
     }

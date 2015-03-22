@@ -23,7 +23,7 @@ namespace FallingBlockGame
             gameLogic = new GameLogic();
 
             Texture2D texture = game.Content.Load<Texture2D>(BLOCK_TEXTURE_ATLAS);
-            TextureAtlas blockTextureAtlas = new TextureAtlas(texture, 2, 2);
+            TextureAtlas blockTextureAtlas = new TextureAtlas(texture, 1, 1);
 
             fieldGameObjectBuilder = new FieldGameObjectBuilder(
                 gameLogic.Field,
@@ -37,6 +37,10 @@ namespace FallingBlockGame
 
         public void Draw(GameTime gameTime)
         {
+            game.RenderManager.ClearScreen(Color.Black);
+            List<GameObject> gameObjects = fieldGameObjectBuilder.CreateGameObjects();
+
+            game.RenderManager.Draw(gameObjects);
         }
     }
 }

@@ -24,6 +24,15 @@ namespace engine
             }
         }
 
+        public void Draw(List<GameObject> gameObjects)
+        {
+            foreach (GameObject gameObject in gameObjects)
+            {
+                IDrawable drawable = gameObject.DrawableComponent.CreateDrawable();
+                drawable.Draw(graphics);
+            }
+        }
+
         public void ClearScreen(Color color)
         {
             graphics.GraphicsDevice.Clear(color);
