@@ -20,6 +20,9 @@ namespace FallingBlockGame
         GraphicsDeviceManager graphics;
         SpriteBatch spriteBatch;
 
+        private RenderManager renderManager;
+        public RenderManager RenderManager { get { return renderManager; } }
+
         public FallingBlockGame()
             : base()
         {
@@ -37,7 +40,8 @@ namespace FallingBlockGame
         protected override void Initialize()
         {
             // TODO: Add your initialization logic here
-
+            renderManager = new RenderManager(new Graphics(GraphicsDevice));
+            
             base.Initialize();
         }
 
