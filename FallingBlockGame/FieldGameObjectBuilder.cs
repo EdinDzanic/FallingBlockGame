@@ -26,13 +26,10 @@ namespace FallingBlockGame
             for (int rowIndex = 0; rowIndex < field.Grid.Length; rowIndex++)
             {
                 for (int columnIndex = 0; columnIndex < field.Grid[rowIndex].Length; columnIndex++)
-                {
-                    int x = field.Grid[rowIndex][columnIndex];
-                    int y = field.Grid[rowIndex][columnIndex];
-                    
+                {                    
                     PositionComponent position = new PositionComponent(
-                        field.X + blockSize * x,  
-                        field.Y + blockSize * y);
+                        field.X + blockSize * columnIndex,  
+                        field.Y + blockSize * rowIndex);
 
                     TextureAtlas copyTextureAtlas = textureAtlas.Clone() as TextureAtlas;
                     DrawableComponent drawable = new DrawableComponent(copyTextureAtlas, position);
