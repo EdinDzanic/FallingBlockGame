@@ -37,7 +37,7 @@ namespace FallingBlockGame
 
         public void Draw(GameTime gameTime)
         {
-            game.RenderManager.ClearScreen(Color.Black);
+            game.RenderManager.ClearScreen(Color.CornflowerBlue);
             List<GameObject> gameObjects = fieldGameObjectBuilder.CreateGameObjects();
 
             game.RenderManager.Draw(gameObjects);

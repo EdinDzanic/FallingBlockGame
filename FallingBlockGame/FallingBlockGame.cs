@@ -17,6 +17,9 @@ namespace FallingBlockGame
     /// </summary>
     public class FallingBlockGame : Game
     {
+        private const int HEIGTH = 700;
+        private const int WIDTH = 600;
+        
         GraphicsDeviceManager graphics;
         SpriteBatch spriteBatch;
 
@@ -30,8 +33,11 @@ namespace FallingBlockGame
             : base()
         {
             graphics = new GraphicsDeviceManager(this);
+            graphics.PreferredBackBufferHeight = HEIGTH;
+            graphics.PreferredBackBufferWidth = WIDTH;
+            graphics.ApplyChanges();
+            
             Content.RootDirectory = "Content";
-
         }
 
         /// <summary>
