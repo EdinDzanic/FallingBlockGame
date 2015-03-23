@@ -58,6 +58,7 @@ namespace FallingBlockGame
             }
 
             AddFallingBlocksToGrid(color);
+            MoveBlocksDowns();
         }
 
         private void AddFallingBlocksToGrid(int color)
@@ -66,6 +67,56 @@ namespace FallingBlockGame
             {
                 Field.Grid[block.X][block.Y] = color;
             }
+        }
+
+        private bool IsPartOfFallingBlocks(int x, int y)
+        {
+            foreach (var block in fallingBlocks)
+            {
+                if (block.X == x && block.Y == y)
+                    return true;
+            }
+
+            return false;
+        }
+        
+        private bool CaneBeMoved(int side, int down)
+        {
+            foreach (var block in fallingBlocks)
+            {
+                int newX = block.X + down;
+                int newY = block.Y + side;
+                if (newX >= FIELD_HEIGHT ||
+                    newY < 0 || newY >= FIELD_WIDTH ||
+                    (Field.Grid[newX][newY] != 0 && !IsPartOfFallingBlocks(newX, newY)))
+                    return false;
+
+            }
+
+            return true;
+        }
+
+        private void MoveBlocks(int side, int down)
+        {
+            if (CaneBeMoved(side, down))
+            {
+                int value = Field.Grid[fallingBlocks.First().X][fallingBlocks.First().Y];
+                
+                for (int i = 0; i < fallingBlocks.Count; i++)
+                {
+                    Field.Grid[fallingBlocks[i].X][fallingBlocks[i].Y] = 0;
+                    fallingBlocks[i] = new Coordinate(
+                        fallingBlocks[i].X + down,
+                        fallingBlocks[i].Y + side);
+                }
+
+                AddFallingBlocksToGrid(value);
+            }
+        }
+
+        private void MoveBlocksDowns()
+        {
+            MoveBlocks(1, 1);
         }
     }
 }
