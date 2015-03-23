@@ -31,6 +31,8 @@ namespace FallingBlockGame
                         field.X + blockSize * columnIndex,  
                         field.Y + blockSize * rowIndex);
 
+                    textureAtlas.Height = blockSize;
+                    textureAtlas.Width = blockSize;
                     TextureAtlas copyTextureAtlas = textureAtlas.Clone() as TextureAtlas;
                     DrawableComponent drawable = new DrawableComponent(copyTextureAtlas, position);
 

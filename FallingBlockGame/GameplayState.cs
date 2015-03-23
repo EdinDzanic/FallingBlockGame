@@ -11,7 +11,7 @@ namespace FallingBlockGame
     public class GameplayState : IGameState
     {
         private const int BLOCK_SIZE = 32;
-        private const string BLOCK_TEXTURE_ATLAS = "dark";
+        private const string BLOCK_TEXTURE_ATLAS = "blocks";
 
         private FallingBlockGame game;
         private FieldGameObjectBuilder fieldGameObjectBuilder;
@@ -23,7 +23,7 @@ namespace FallingBlockGame
             gameLogic = new GameLogic();
 
             Texture2D texture = game.Content.Load<Texture2D>(BLOCK_TEXTURE_ATLAS);
-            TextureAtlas blockTextureAtlas = new TextureAtlas(texture, 1, 1);
+            TextureAtlas blockTextureAtlas = new TextureAtlas(texture, 2, 3);
 
             fieldGameObjectBuilder = new FieldGameObjectBuilder(
                 gameLogic.Field,
