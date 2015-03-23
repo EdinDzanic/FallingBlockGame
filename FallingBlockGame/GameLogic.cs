@@ -13,9 +13,13 @@ namespace FallingBlockGame
         private Field field;
         public Field Field { get { return field;} }
 
+        private List<Coordinate> fallingBlocks;
+
         public GameLogic()
         {
             field = new Field(FIELD_HEIGHT, FIELD_WIDTH, 20, 20);
+
+            fallingBlocks = new List<Coordinate>();
         }
     }
 }
