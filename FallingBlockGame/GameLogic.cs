@@ -13,7 +13,7 @@ namespace FallingBlockGame
         Down,
         Rotate
     }
-    
+
     public class GameLogic
     {
         private const int FIELD_WIDTH = 10;
@@ -30,10 +30,10 @@ namespace FallingBlockGame
         };
 
         private Field field;
-        public Field Field { get { return field;} }
+        public Field Field { get { return field; } }
 
         private List<Coordinate> fallingBlocks;
-        
+
 
         public GameLogic()
         {
@@ -53,7 +53,7 @@ namespace FallingBlockGame
             int col = 0;
             foreach (char c in blockTypes[shapeType])
             {
-                if(c != '-')
+                if (c != '-')
                 {
                     if (c != '0')
                         fallingBlocks.Add(new Coordinate(row, col));
@@ -87,7 +87,7 @@ namespace FallingBlockGame
 
             return false;
         }
-        
+
         private bool CaneBeMoved(int side, int down)
         {
             foreach (var block in fallingBlocks)
@@ -109,7 +109,7 @@ namespace FallingBlockGame
             if (CaneBeMoved(side, down))
             {
                 int value = Field.Grid[fallingBlocks.First().X][fallingBlocks.First().Y];
-                
+
                 for (int i = 0; i < fallingBlocks.Count; i++)
                 {
                     Field.Grid[fallingBlocks[i].X][fallingBlocks[i].Y] = 0;
@@ -123,7 +123,39 @@ namespace FallingBlockGame
             else if (down == 1)
             {
                 fallingBlocks.Clear();
+                ClearFullRows();
                 CreateFallingBlocks();
+            }
+        }
+
+        private void ClearFullRows()
+        {
+            for (int row = 0; row < Field.Grid.Length; row++)
+            {
+                bool isFullRow = true;
+                for (int column = 0; column < Field.Grid[row].Length; column++)
+                {
+                    if (Field.Grid[row][column] == 0)
+                    {
+                        isFullRow = false;
+                        break;
+                    }
+                }
+
+                if (isFullRow)
+                    MoveRowsDown(row);
+            }
+        }
+
+        private void MoveRowsDown(int row)
+        {
+            for (int rowIndex = row; rowIndex >= 0; rowIndex--)
+            {
+                if (rowIndex != 0)
+                    for (int column = 0; column < Field.Grid[row].Length; column++)
+                    {
+                        Field.Grid[rowIndex][column] = Field.Grid[rowIndex - 1][column];
+                    }
             }
         }
 
