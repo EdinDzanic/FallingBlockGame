@@ -7,6 +7,7 @@ namespace FallingBlockGame
 {
     public enum Movement
     {
+        None,
         Left,
         Right,
         Down,

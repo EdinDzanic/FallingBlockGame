@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
+using Microsoft.Xna.Framework.Input;
 using engine;
 
 namespace FallingBlockGame
@@ -33,6 +34,15 @@ namespace FallingBlockGame
         
         public void Update(GameTime gameTime)
         {
+            Movement move = Movement.None;
+            if (InputManager.KeyPressed(Keys.Down))
+                move = Movement.Down;
+            else if (InputManager.KeyPressed(Keys.Left))
+                move = Movement.Left;
+            else if (InputManager.KeyPressed(Keys.Right))
+                move = Movement.Right;
+
+            gameLogic.Update(move);
         }
 
         public void Draw(GameTime gameTime)
