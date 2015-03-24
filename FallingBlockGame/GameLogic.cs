@@ -120,6 +120,11 @@ namespace FallingBlockGame
 
                 AddFallingBlocksToGrid(value);
             }
+            else if (down == 1)
+            {
+                fallingBlocks.Clear();
+                CreateFallingBlocks();
+            }
         }
 
         private void Rotate()
