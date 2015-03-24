@@ -5,6 +5,14 @@ using System.Text;
 
 namespace FallingBlockGame
 {
+    public enum Movement
+    {
+        Left,
+        Right,
+        Down,
+        Rotate
+    }
+    
     public class GameLogic
     {
         private const int FIELD_WIDTH = 10;
@@ -58,7 +66,6 @@ namespace FallingBlockGame
             }
 
             AddFallingBlocksToGrid(color);
-            MoveBlocksDowns();
         }
 
         private void AddFallingBlocksToGrid(int color)
@@ -114,9 +121,45 @@ namespace FallingBlockGame
             }
         }
 
-        private void MoveBlocksDowns()
+        private void Rotate()
         {
-            MoveBlocks(1, 1);
+            throw new NotImplementedException();
+        }
+
+        private void MoveBlocksDown()
+        {
+            MoveBlocks(0, 1);
+        }
+
+        private void MoveBlocksRight()
+        {
+            MoveBlocks(1, 0);
+        }
+
+        private void MoveBlocksLeft()
+        {
+            MoveBlocks(-1, 0);
+        }
+
+        public void Update(Movement move)
+        {
+            switch (move)
+            {
+                case Movement.Left:
+                    MoveBlocksLeft();
+                    break;
+                case Movement.Right:
+                    MoveBlocksRight();
+                    break;
+                case Movement.Down:
+                    MoveBlocksDown();
+                    break;
+                case Movement.Rotate:
+                    Rotate();
+                    break;
+                default:
+                    break;
+            }
         }
     }
 }
