@@ -161,7 +161,66 @@ namespace FallingBlockGame
 
         private void Rotate()
         {
-            throw new NotImplementedException();
+            int xMin = int.MaxValue;
+            int xMax = int.MinValue;
+            int yMin = int.MaxValue;
+            int yMax = int.MinValue;
+
+            foreach (var block in fallingBlocks)
+            {
+                xMin = Math.Min(xMin, block.X);
+                yMin = Math.Min(yMin, block.Y);
+                xMax = Math.Max(xMax, block.X);
+                yMax = Math.Max(yMax, block.Y);
+            }
+
+            List<Coordinate> rotatedBlocks = new List<Coordinate>();
+            for (int x = xMin; x <= xMax; x++)
+            {
+                for (int y = yMin; y <= yMax; y++)
+                {
+                    Coordinate coordinate = new Coordinate(x, y);
+                    if (fallingBlocks.Contains(coordinate))
+                    {
+                        coordinate.X = xMin + y - yMin;
+                        coordinate.Y = yMax - x + xMin;
+                        rotatedBlocks.Add(coordinate);
+                    }
+                }
+            }
+
+            bool canBeRotated = true;
+            foreach (var rotatedBlock in rotatedBlocks)
+            {
+                if (rotatedBlock.X < 0 || rotatedBlock.X >= FIELD_HEIGHT ||
+                    rotatedBlock.Y < 0 || rotatedBlock.Y >= FIELD_WIDTH)
+                {
+                    canBeRotated = false;
+                    break;
+                }
+                else if( Field.Grid[rotatedBlock.X][rotatedBlock.Y] != 0 &&
+                    !IsPartOfFallingBlocks(rotatedBlock.X, rotatedBlock.Y))
+                {
+                    canBeRotated = false;
+                    break;
+                }
+            }
+
+            if (canBeRotated)
+            {
+                int blockColor = Field.Grid[fallingBlocks.First().X][fallingBlocks.First().Y];
+                foreach (var block in fallingBlocks)
+                {
+                    Field.Grid[block.X][block.Y] = 0;
+                }
+
+                foreach (var rotatedBlock in rotatedBlocks)
+                {
+                    Field.Grid[rotatedBlock.X][rotatedBlock.Y] = blockColor;
+                }
+
+                fallingBlocks = rotatedBlocks;
+            }
         }
 
         private void MoveBlocksDown()

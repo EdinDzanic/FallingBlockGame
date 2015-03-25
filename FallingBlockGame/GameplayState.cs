@@ -41,6 +41,8 @@ namespace FallingBlockGame
                 move = Movement.Left;
             else if (InputManager.KeyPressed(Keys.Right))
                 move = Movement.Right;
+            else if (InputManager.KeyPressed(Keys.Up))
+                move = Movement.Rotate;
 
             gameLogic.Update(move);
         }
