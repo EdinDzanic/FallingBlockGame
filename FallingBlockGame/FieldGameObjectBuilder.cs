@@ -35,13 +35,13 @@ namespace FallingBlockGame
         {
             List<GameObject> gameObjects = new List<GameObject>();
 
-            for (int rowIndex = 0; rowIndex < field.Grid.Length; rowIndex++)
+            for (int rowIndex = 2; rowIndex < field.Grid.Length; rowIndex++)
             {
                 for (int columnIndex = 0; columnIndex < field.Grid[rowIndex].Length; columnIndex++)
                 {                    
                     PositionComponent position = new PositionComponent(
-                        field.X + blockSize * columnIndex,  
-                        field.Y + blockSize * rowIndex);
+                        field.X + blockSize * columnIndex,
+                        field.Y + blockSize * (rowIndex - 2));
 
                     TextureAtlas copyTextureAtlas = textureAtlas.Clone() as TextureAtlas;
                     int value = field.Grid[rowIndex][columnIndex];

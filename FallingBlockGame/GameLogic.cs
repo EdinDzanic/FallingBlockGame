@@ -17,7 +17,7 @@ namespace FallingBlockGame
     public class GameLogic
     {
         private const int FIELD_WIDTH = 10;
-        private const int FIELD_HEIGHT = 20;
+        private const int FIELD_HEIGHT = 22;
 
         private string[] blockTypes = new string[] {
             "11-11",
@@ -34,6 +34,8 @@ namespace FallingBlockGame
 
         private List<Coordinate> fallingBlocks;
 
+        private bool isGameOver;
+        public bool IsGameOver { get { return isGameOver; } }
 
         public GameLogic()
         {
@@ -41,6 +43,8 @@ namespace FallingBlockGame
 
             fallingBlocks = new List<Coordinate>();
             CreateFallingBlocks();
+
+            isGameOver = false;
         }
 
         public void CreateFallingBlocks()
@@ -73,7 +77,8 @@ namespace FallingBlockGame
         {
             foreach (Coordinate block in fallingBlocks)
             {
-                Field.Grid[block.X][block.Y] = color;
+                if (block.X >= 0)
+                    Field.Grid[block.X][block.Y] = color;
             }
         }
 
@@ -124,7 +129,23 @@ namespace FallingBlockGame
             {
                 fallingBlocks.Clear();
                 ClearFullRows();
+                CheckForGameOver();
                 CreateFallingBlocks();
+            }
+        }
+
+        private void CheckForGameOver()
+        {
+            for (int rowIndex = 0; rowIndex < 2; rowIndex++)
+            {
+                for (int columnIndex = 0; columnIndex < FIELD_WIDTH; columnIndex++)
+                {
+                    if (Field.Grid[rowIndex][columnIndex] != 0)
+                    {
+                        isGameOver = true;
+                        break;
+                    }
+                }
             }
         }
 
@@ -198,7 +219,7 @@ namespace FallingBlockGame
                     canBeRotated = false;
                     break;
                 }
-                else if( Field.Grid[rotatedBlock.X][rotatedBlock.Y] != 0 &&
+                else if (Field.Grid[rotatedBlock.X][rotatedBlock.Y] != 0 &&
                     !IsPartOfFallingBlocks(rotatedBlock.X, rotatedBlock.Y))
                 {
                     canBeRotated = false;
