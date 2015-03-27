@@ -19,10 +19,15 @@ namespace FallingBlockGame
         private FieldGameObjectBuilder fieldGameObjectBuilder;
         private GameLogic gameLogic;
 
+        public bool IsActive { get; set; }
+        public List<IGameState> ChildStates { get; set; }
+        
         public GameplayState(FallingBlockGame game)
         {
             this.game = game;
             gameLogic = new GameLogic();
+
+            IsActive = false;
 
             Texture2D texture = game.Content.Load<Texture2D>(BLOCK_TEXTURE_ATLAS);
             TextureAtlas blockTextureAtlas = new TextureAtlas(texture, 2, 3);
@@ -31,6 +36,8 @@ namespace FallingBlockGame
                 gameLogic.Field,
                 BLOCK_SIZE,
                 blockTextureAtlas);
+
+            ChildStates = new List<IGameState>();
         }
         
         public void Update(GameTime gameTime)
@@ -63,5 +70,6 @@ namespace FallingBlockGame
 
             game.RenderManager.Draw(gameObjects);
         }
+
     }
 }

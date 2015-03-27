@@ -8,6 +8,8 @@ namespace engine
 {
     public interface IGameState
     {
+        bool IsActive { get; set; }
+        List<IGameState> ChildStates { get; set; }
         void Update(GameTime gameTime);
         void Draw(GameTime gameTime);
     }

@@ -26,12 +26,30 @@ namespace engine
 
         public void Update(GameTime gameTime)
         {
-            currentState.Update(gameTime);
+            if (currentState.IsActive)
+                currentState.Update(gameTime);
+        }
+        private void UpdateChildStates(GameTime gameTime)
+        {
+            foreach (IGameState state in currentState.ChildStates)
+            {
+                if (state.IsActive)
+                    state.Update(gameTime);
+            }
         }
 
         public void Draw(GameTime gameTime)
         {
-            currentState.Draw(gameTime);
+            if (currentState.IsActive)
+                currentState.Draw(gameTime);
+        }
+        private void DrawChildStates(GameTime gameTime)
+        {
+            foreach (IGameState state in currentState.ChildStates)
+            {
+                if (state.IsActive)
+                    state.Draw(gameTime);
+            }
         }
 
         public void Add(string stateName, IGameState state)
@@ -41,7 +59,10 @@ namespace engine
 
         public void ChangeState(string stateName)
         {
+            if (currentState != null)
+                currentState.IsActive = false;
             currentState = gameStates[stateName];
+            currentState.IsActive = true;
         }
     }
 }

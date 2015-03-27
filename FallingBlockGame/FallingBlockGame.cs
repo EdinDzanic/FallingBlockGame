@@ -1,12 +1,12 @@
 ﻿#region Using Statements
 using System;
+using System.IO;
 using System.Collections.Generic;
 using Microsoft.Xna.Framework;
-using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 using Microsoft.Xna.Framework.Storage;
-//using Microsoft.Xna.Framework.GamerServices;
+using MonoGame.Framework;
 using engine;
 #endregion
 
@@ -28,6 +28,8 @@ namespace FallingBlockGame
 
         private GameStateManager gameStateManager;
         public GameStateManager GameStateManager { get { return gameStateManager; } }
+
+        private SpriteFont font;
 
         public FallingBlockGame()
             : base()
@@ -67,6 +69,7 @@ namespace FallingBlockGame
             // Create a new SpriteBatch, which can be used to draw textures.
             spriteBatch = new SpriteBatch(GraphicsDevice);
 
+            font = Content.Load<SpriteFont>("test");
             // TODO: use this.Content to load your game content here
         }
 
@@ -102,7 +105,11 @@ namespace FallingBlockGame
         protected override void Draw(GameTime gameTime)
         {
             gameStateManager.Draw(gameTime);
-            
+
+            spriteBatch.Begin();
+            spriteBatch.DrawString(font, "test", new Vector2(400, 300), Color.Black);
+            spriteBatch.End();
+
             base.Draw(gameTime);
         }
     }
