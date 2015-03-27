@@ -75,6 +75,7 @@
     </Compile>
     <Compile Include="FieldGameObjectBuilder.cs" />
     <Compile Include="GameLogic.cs" />
+    <Compile Include="GameOverState.cs" />
     <Compile Include="GameplayState.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

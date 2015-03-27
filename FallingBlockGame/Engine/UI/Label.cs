@@ -28,7 +28,9 @@ namespace engine
 
         public void Draw(Graphics graphics)
         {
+            graphics.SpriteBatch.Begin();
             graphics.SpriteBatch.DrawString(Font, Text, Position + Padding, TextColor);
+            graphics.SpriteBatch.End();
         }
     }
 }

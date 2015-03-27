@@ -38,6 +38,7 @@ namespace FallingBlockGame
                 blockTextureAtlas);
 
             ChildStates = new List<IGameState>();
+            ChildStates.Add(new GameOverState(game));
         }
         
         public void Update(GameTime gameTime)
@@ -59,7 +60,7 @@ namespace FallingBlockGame
             }
             else
             {
-                game.Exit();
+                ChildStates.First().IsActive = true;
             }
         }
 

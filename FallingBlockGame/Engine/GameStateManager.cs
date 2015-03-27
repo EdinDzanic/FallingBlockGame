@@ -28,6 +28,7 @@ namespace engine
         {
             if (currentState.IsActive)
                 currentState.Update(gameTime);
+            UpdateChildStates(gameTime);
         }
         private void UpdateChildStates(GameTime gameTime)
         {
@@ -42,6 +43,7 @@ namespace engine
         {
             if (currentState.IsActive)
                 currentState.Draw(gameTime);
+            DrawChildStates(gameTime);
         }
         private void DrawChildStates(GameTime gameTime)
         {

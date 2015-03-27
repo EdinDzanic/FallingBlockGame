@@ -10,6 +10,7 @@ namespace engine
     public class RenderManager
     {
         private Graphics graphics;
+        public Graphics Graphics { get { return graphics; } }
 
         public RenderManager(Graphics graphics)
         {
