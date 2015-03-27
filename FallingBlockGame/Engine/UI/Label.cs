@@ -15,6 +15,8 @@ namespace engine
 
         public Vector2 Position { get; set; }
         public Vector2 Padding { get; set; }
+        public int Width { get; set; }
+        public int Heigth { get; set; }
 
         public Color BackgroundColor { get; set; }
         public Texture2D BackgroundImage { get; set; }
@@ -29,6 +31,9 @@ namespace engine
         public void Draw(Graphics graphics)
         {
             graphics.SpriteBatch.Begin();
+            graphics.SpriteBatch.Draw(BackgroundImage, 
+                new Rectangle((int)Position.X, (int)Position.Y, Width, Heigth), 
+                BackgroundColor);
             graphics.SpriteBatch.DrawString(Font, Text, Position + Padding, TextColor);
             graphics.SpriteBatch.End();
         }

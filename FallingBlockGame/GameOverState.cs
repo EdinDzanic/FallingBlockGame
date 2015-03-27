@@ -25,6 +25,10 @@ namespace FallingBlockGame
             label.Font = game.Content.Load<SpriteFont>("test");
             label.TextColor = Color.Red;
             label.Position = new Vector2(0, 0);
+            label.BackgroundImage = game.Content.Load<Texture2D>("background");
+            label.BackgroundColor = Color.Gray;
+            label.Width = FallingBlockGame.WIDTH;
+            label.Heigth = FallingBlockGame.HEIGTH;
 
             IsActive = false;
             ChildStates = new List<IGameState>();

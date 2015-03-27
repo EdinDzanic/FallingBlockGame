@@ -17,8 +17,8 @@ namespace FallingBlockGame
     /// </summary>
     public class FallingBlockGame : Game
     {
-        private const int HEIGTH = 700;
-        private const int WIDTH = 600;
+        public const int HEIGTH = 700;
+        public const int WIDTH = 600;
         
         GraphicsDeviceManager graphics;
         SpriteBatch spriteBatch;
@@ -28,8 +28,6 @@ namespace FallingBlockGame
 
         private GameStateManager gameStateManager;
         public GameStateManager GameStateManager { get { return gameStateManager; } }
-
-        private SpriteFont font;
 
         public FallingBlockGame()
             : base()
@@ -69,7 +67,6 @@ namespace FallingBlockGame
             // Create a new SpriteBatch, which can be used to draw textures.
             spriteBatch = new SpriteBatch(GraphicsDevice);
 
-            font = Content.Load<SpriteFont>("test");
             // TODO: use this.Content to load your game content here
         }
 
@@ -105,11 +102,6 @@ namespace FallingBlockGame
         protected override void Draw(GameTime gameTime)
         {
             gameStateManager.Draw(gameTime);
-
-            spriteBatch.Begin();
-            spriteBatch.DrawString(font, "test", new Vector2(400, 300), Color.Black);
-            spriteBatch.End();
-
             base.Draw(gameTime);
         }
     }
