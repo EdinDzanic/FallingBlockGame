@@ -47,20 +47,28 @@ namespace FallingBlockGame
             if (!gameLogic.IsGameOver) 
             {
                 Movement move = Movement.None;
-                if (InputManager.KeyPressed(Keys.Down))
+                if (InputManager.KeyReleased(Keys.Down))
                     move = Movement.Down;
-                else if (InputManager.KeyPressed(Keys.Left))
+                else if (InputManager.KeyReleased(Keys.Left))
                     move = Movement.Left;
-                else if (InputManager.KeyPressed(Keys.Right))
+                else if (InputManager.KeyReleased(Keys.Right))
                     move = Movement.Right;
-                else if (InputManager.KeyPressed(Keys.Up))
+                else if (InputManager.KeyReleased(Keys.Up))
                     move = Movement.Rotate;
 
                 gameLogic.Update(move);
             }
-            else
+            else if (!ChildStates.First().IsActive)
             {
                 ChildStates.First().IsActive = true;
+            }
+            else
+            {
+                if (InputManager.IsAnyKeyPressed())
+                {
+                    gameLogic.Restart();
+                    ChildStates.First().IsActive = false;
+                }
             }
         }
 

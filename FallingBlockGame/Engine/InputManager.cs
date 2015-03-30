@@ -42,7 +42,8 @@ namespace engine
 
         public static bool IsAnyKeyPressed()
         {
-            return keyboardState.GetPressedKeys().Length > 0;
+            int l = Keyboard.GetState().GetPressedKeys().Length;
+            return Keyboard.GetState().GetPressedKeys().Length > 0;
         }
     }
 }

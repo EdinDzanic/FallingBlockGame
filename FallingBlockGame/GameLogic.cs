@@ -159,6 +159,7 @@ namespace FallingBlockGame
                 }
             }
 
+            isGameOver = false;
             fallingBlocks.Clear();
             CreateFallingBlocks();
         }
