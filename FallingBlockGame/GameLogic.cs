@@ -149,6 +149,20 @@ namespace FallingBlockGame
             }
         }
 
+        public void Restart()
+        {
+            for (int rowIndex = 0; rowIndex < Field.Grid.Length; rowIndex++)
+            {
+                for (int columnIndex = 0; columnIndex < Field.Grid[rowIndex].Length; columnIndex++)
+                {
+                    Field.Grid[rowIndex][columnIndex] = 0;
+                }
+            }
+
+            fallingBlocks.Clear();
+            CreateFallingBlocks();
+        }
+
         private void ClearFullRows()
         {
             for (int row = 0; row < Field.Grid.Length; row++)
