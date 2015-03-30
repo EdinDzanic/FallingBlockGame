@@ -7,14 +7,11 @@ using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 using Microsoft.Xna.Framework.Storage;
-//using Microsoft.Xna.Framework.GamerServices;
 
 namespace engine
 {
     public static class InputManager
     {
-        #region Field and Property Region
-
         static KeyboardState keyboardState;
         static KeyboardState lastKeyboardState;
 
@@ -26,10 +23,6 @@ namespace engine
         {
             get { return lastKeyboardState; }
         }
-
-        #endregion
-
-        #region Method Region
 
         public static void Update()
         {
@@ -47,6 +40,9 @@ namespace engine
             return keyboardState.IsKeyDown(key) && lastKeyboardState.IsKeyUp(key);
         }
 
-        #endregion
+        public static bool IsAnyKeyPressed()
+        {
+            return keyboardState.GetPressedKeys().Length > 0;
+        }
     }
 }
