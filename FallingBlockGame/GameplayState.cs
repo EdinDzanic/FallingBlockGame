@@ -21,7 +21,9 @@ namespace FallingBlockGame
 
         public bool IsActive { get; set; }
         public List<IGameState> ChildStates { get; set; }
-        
+
+        private double timer;
+
         public GameplayState(FallingBlockGame game)
         {
             this.game = game;
@@ -39,10 +41,14 @@ namespace FallingBlockGame
 
             ChildStates = new List<IGameState>();
             ChildStates.Add(new GameOverState(game));
+
+            timer = gameLogic.UpdateRate;
         }
         
         public void Update(GameTime gameTime)
         {
+            double elapsedTime = gameTime.ElapsedGameTime.TotalSeconds;
+            timer -= elapsedTime;
 
             if (!gameLogic.IsGameOver) 
             {
@@ -55,6 +61,12 @@ namespace FallingBlockGame
                     move = Movement.Right;
                 else if (InputManager.KeyReleased(Keys.Up))
                     move = Movement.Rotate;
+
+                if (timer < 0)
+                {
+                    timer = gameLogic.UpdateRate;
+                    gameLogic.Update(Movement.Down);
+                }
 
                 gameLogic.Update(move);
             }

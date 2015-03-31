@@ -18,6 +18,7 @@ namespace FallingBlockGame
     {
         private const int FIELD_WIDTH = 10;
         private const int FIELD_HEIGHT = 22;
+        private const double SPEED_RATE_INCREASE = 0.1;
 
         private string[] blockTypes = new string[] {
             "11-11",
@@ -36,6 +37,8 @@ namespace FallingBlockGame
 
         private bool isGameOver;
         public bool IsGameOver { get { return isGameOver; } }
+        public int Speed { get; set; }
+        public double UpdateRate { get { return (1 - (SPEED_RATE_INCREASE * (Speed - 1))); } }
 
         public GameLogic()
         {
@@ -45,6 +48,8 @@ namespace FallingBlockGame
             CreateFallingBlocks();
 
             isGameOver = false;
+
+            Speed = 10;
         }
 
         public void CreateFallingBlocks()
