@@ -31,10 +31,14 @@ namespace engine
         public void Draw(Graphics graphics)
         {
             graphics.SpriteBatch.Begin();
-            graphics.SpriteBatch.Draw(BackgroundImage, 
-                new Rectangle((int)Position.X, (int)Position.Y, Width, Heigth), 
-                BackgroundColor);
+
+            if (BackgroundImage != null)
+                graphics.SpriteBatch.Draw(BackgroundImage,
+                    new Rectangle((int)Position.X, (int)Position.Y, Width, Heigth),
+                    BackgroundColor);
+
             graphics.SpriteBatch.DrawString(Font, Text, Position + Padding, TextColor);
+
             graphics.SpriteBatch.End();
         }
     }

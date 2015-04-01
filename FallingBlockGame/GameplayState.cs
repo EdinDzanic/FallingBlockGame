@@ -23,6 +23,8 @@ namespace FallingBlockGame
         public bool IsActive { get; set; }
         public List<IGameState> ChildStates { get; set; }
 
+        private Label score;
+        
         private double timer;
         private double keyDownTimer;
 
@@ -46,6 +48,11 @@ namespace FallingBlockGame
 
             timer = gameLogic.UpdateRate;
             keyDownTimer = MOVE_SPEED;
+
+            score = new Label("Score: 0");
+            score.Font = game.Content.Load<SpriteFont>("test");
+            score.TextColor = Color.Black;
+            score.Position = new Vector2(400, 70);
         }
 
         private Movement UpdateKeyHoldDownMovement(GameTime gameTime,  Movement movement)
@@ -93,6 +100,7 @@ namespace FallingBlockGame
                 }
 
                 gameLogic.Update(move);
+                score.Text = string.Format("Score: {0}", gameLogic.Score);
             }
             else if (!ChildStates.First().IsActive)
             {
@@ -114,6 +122,8 @@ namespace FallingBlockGame
             List<GameObject> gameObjects = fieldGameObjectBuilder.CreateGameObjects();
 
             game.RenderManager.Draw(gameObjects);
+
+            score.Draw(game.RenderManager.Graphics);
         }
 
     }

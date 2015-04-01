@@ -14,7 +14,7 @@ namespace FallingBlockGame
 
         public List<IGameState> ChildStates { get; set; }
 
-        private const string GAME_OVER = "Game over";
+        private const string GAME_OVER = "Game over \nPress any key to continue";
         private Label label;
         private FallingBlockGame game;
 

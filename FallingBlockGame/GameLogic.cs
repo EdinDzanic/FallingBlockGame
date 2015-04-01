@@ -40,6 +40,9 @@ namespace FallingBlockGame
         public int Speed { get; set; }
         public double UpdateRate { get { return (1 - (SPEED_RATE_INCREASE * (Speed - 1))); } }
 
+        private int score;
+        public int Score { get { return score; } }
+
         public GameLogic()
         {
             field = new Field(FIELD_HEIGHT, FIELD_WIDTH, 20, 20);
@@ -50,6 +53,7 @@ namespace FallingBlockGame
             isGameOver = false;
 
             Speed = 1;
+            score = 0;
         }
 
         public void CreateFallingBlocks()
@@ -169,8 +173,15 @@ namespace FallingBlockGame
             CreateFallingBlocks();
         }
 
+        private void CalculateScore(int clearedRows)
+        {
+            score += (clearedRows + clearedRows - 1) * 100;
+        }
+
         private void ClearFullRows()
         {
+            int numberOfFullRows = 0;
+
             for (int row = 0; row < Field.Grid.Length; row++)
             {
                 bool isFullRow = true;
@@ -184,8 +195,14 @@ namespace FallingBlockGame
                 }
 
                 if (isFullRow)
+                {
+                    numberOfFullRows++;
                     MoveRowsDown(row);
+                }
             }
+
+            if (numberOfFullRows > 0)
+                CalculateScore(numberOfFullRows);
         }
 
         private void MoveRowsDown(int row)
