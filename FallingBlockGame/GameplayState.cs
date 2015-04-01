@@ -13,6 +13,7 @@ namespace FallingBlockGame
     public class GameplayState : IGameState
     {
         private const int BLOCK_SIZE = 32;
+        private const int MOVE_SPEED = 100;
         private const string BLOCK_TEXTURE_ATLAS = "blocks";
 
         private FallingBlockGame game;
@@ -23,6 +24,7 @@ namespace FallingBlockGame
         public List<IGameState> ChildStates { get; set; }
 
         private double timer;
+        private double keyDownTimer;
 
         public GameplayState(FallingBlockGame game)
         {
@@ -43,6 +45,19 @@ namespace FallingBlockGame
             ChildStates.Add(new GameOverState(game));
 
             timer = gameLogic.UpdateRate;
+            keyDownTimer = MOVE_SPEED;
+        }
+
+        private Movement UpdateKeyHoldDownMovement(GameTime gameTime,  Movement movement)
+        {
+            keyDownTimer -= gameTime.ElapsedGameTime.Milliseconds;
+            if (keyDownTimer < 0)
+            {
+                    keyDownTimer = MOVE_SPEED;
+                    return movement;
+            }
+
+            return Movement.None;
         }
         
         public void Update(GameTime gameTime)
@@ -61,6 +76,15 @@ namespace FallingBlockGame
                     move = Movement.Right;
                 else if (InputManager.KeyReleased(Keys.Up))
                     move = Movement.Rotate;
+
+                if (InputManager.KeyboardState.IsKeyDown(Keys.Down))
+                    move = UpdateKeyHoldDownMovement(gameTime, Movement.Down);
+                else if (InputManager.KeyboardState.IsKeyDown(Keys.Left))
+                    move = UpdateKeyHoldDownMovement(gameTime, Movement.Left);
+                else if (InputManager.KeyboardState.IsKeyDown(Keys.Right))
+                    move = UpdateKeyHoldDownMovement(gameTime, Movement.Right);
+                else
+                    keyDownTimer = MOVE_SPEED;
 
                 if (timer < 0)
                 {

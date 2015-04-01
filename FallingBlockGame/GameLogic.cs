@@ -49,7 +49,7 @@ namespace FallingBlockGame
 
             isGameOver = false;
 
-            Speed = 10;
+            Speed = 1;
         }
 
         public void CreateFallingBlocks()
