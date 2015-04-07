@@ -20,7 +20,7 @@ namespace FallingBlockGame
         private const int FIELD_HEIGHT = 22;
         private const double SPEED_RATE_INCREASE = 0.1;
 
-        private string[] blockTypes = new string[] {
+        public string[] blockTypes = new string[] {
             "11-11",
             "010-111",
             "001-111",
@@ -45,6 +45,7 @@ namespace FallingBlockGame
 
         private int currentShapeType;
         private int nextShapeType;
+        public int NextShapeType { get { return nextShapeType; } }
         private Random random = new Random();
 
         public GameLogic()

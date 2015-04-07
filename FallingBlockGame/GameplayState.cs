@@ -18,13 +18,16 @@ namespace FallingBlockGame
 
         private FallingBlockGame game;
         private FieldGameObjectBuilder fieldGameObjectBuilder;
+        private NextShapeGameObjectBuilder nextShapeGameObjectBuilder;
         private GameLogic gameLogic;
+        
+        private List<List<GameObject>> nextShapes;
 
         public bool IsActive { get; set; }
         public List<IGameState> ChildStates { get; set; }
 
         private Label score;
-        
+
         private double timer;
         private double keyDownTimer;
 
@@ -53,6 +56,19 @@ namespace FallingBlockGame
             score.Font = game.Content.Load<SpriteFont>("test");
             score.TextColor = Color.Black;
             score.Position = new Vector2(400, 70);
+
+            nextShapeGameObjectBuilder = new NextShapeGameObjectBuilder(
+                new Vector2(400, 150),
+                gameLogic.blockTypes,
+                blockTextureAtlas,
+                BLOCK_SIZE);
+
+            nextShapes = new List<List<GameObject>>();
+            for (int i = 0; i < gameLogic.blockTypes.Length; i++)
+            {
+                nextShapeGameObjectBuilder.ShapeType = i;
+                nextShapes.Add(nextShapeGameObjectBuilder.CreateGameObjects());
+            }
         }
 
         private Movement UpdateKeyHoldDownMovement(GameTime gameTime,  Movement movement)
@@ -122,6 +138,7 @@ namespace FallingBlockGame
             List<GameObject> gameObjects = fieldGameObjectBuilder.CreateGameObjects();
 
             game.RenderManager.Draw(gameObjects);
+            game.RenderManager.Draw(nextShapes[gameLogic.NextShapeType]);
 
             score.Draw(game.RenderManager.Graphics);
         }
