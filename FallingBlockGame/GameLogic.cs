@@ -43,11 +43,16 @@ namespace FallingBlockGame
         private int score;
         public int Score { get { return score; } }
 
+        private int currentShapeType;
+        private int nextShapeType;
+        private Random random = new Random();
+
         public GameLogic()
         {
             field = new Field(FIELD_HEIGHT, FIELD_WIDTH, 20, 20);
 
             fallingBlocks = new List<Coordinate>();
+            nextShapeType = random.Next(0, blockTypes.Length);
             CreateFallingBlocks();
 
             isGameOver = false;
@@ -58,13 +63,13 @@ namespace FallingBlockGame
 
         public void CreateFallingBlocks()
         {
-            Random random = new Random();
-            int shapeType = random.Next(0, blockTypes.Length);
+            currentShapeType = nextShapeType;
+            nextShapeType = random.Next(0, blockTypes.Length);
             int color = random.Next(1, 5);
 
             int row = 0;
             int col = 0;
-            foreach (char c in blockTypes[shapeType])
+            foreach (char c in blockTypes[currentShapeType])
             {
                 if (c != '-')
                 {
