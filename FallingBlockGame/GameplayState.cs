@@ -27,6 +27,7 @@ namespace FallingBlockGame
         public List<IGameState> ChildStates { get; set; }
 
         private Label score;
+        private Panel scorePanel;
 
         private double timer;
         private double keyDownTimer;
@@ -56,6 +57,11 @@ namespace FallingBlockGame
             score.Font = game.Content.Load<SpriteFont>("test");
             score.TextColor = Color.Black;
             score.Position = new Vector2(400, 70);
+
+            scorePanel = new Panel(game.GraphicsDevice);
+            scorePanel.Position = new Vector2(400, 70);
+            scorePanel.Heigth = 30;
+            scorePanel.Width = 100;
 
             nextShapeGameObjectBuilder = new NextShapeGameObjectBuilder(
                 new Vector2(400, 150),
@@ -140,6 +146,7 @@ namespace FallingBlockGame
             game.RenderManager.Draw(gameObjects);
             game.RenderManager.Draw(nextShapes[gameLogic.NextShapeType]);
 
+            scorePanel.Draw(game.RenderManager.Graphics);
             score.Draw(game.RenderManager.Graphics);
         }
 
