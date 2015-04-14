@@ -44,6 +44,7 @@
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Compile>
     <Compile Include="Engine\UI\Label.cs" />
+    <Compile Include="Engine\UI\Panel.cs" />
     <Compile Include="FallingBlockGame.cs" />
     <Compile Include="Field.cs" />
     <Compile Include="Engine\GameObject.cs">
