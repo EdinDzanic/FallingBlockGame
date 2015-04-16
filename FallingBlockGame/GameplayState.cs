@@ -60,7 +60,7 @@ namespace FallingBlockGame
 
             scorePanel = new Panel(game.GraphicsDevice);
             scorePanel.Position = new Vector2(400, 70);
-            scorePanel.Heigth = 30;
+            scorePanel.Heigth = 40;
             scorePanel.Width = 100;
 
             nextShapeGameObjectBuilder = new NextShapeGameObjectBuilder(

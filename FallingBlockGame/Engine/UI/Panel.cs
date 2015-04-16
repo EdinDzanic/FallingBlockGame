@@ -9,19 +9,63 @@ namespace engine
 {
     public class Panel
     {
-        public Vector2 Position { get; set; }
-        public int Heigth { get; set; }
-        public int Width { get; set; }
+        private int height;
+        private int width;
+        private Vector2 position;
+        
+        public Vector2 Position {
+            get 
+            {
+                return position;
+            }
+            set
+            {
+                position = value;
+                Border.Position = position;
+            }
+        }
 
+        public int Heigth
+        {
+            get
+            {
+                return height;
+            }
+            set
+            {
+                height = value;
+                Border.Heigth = height;
+            }
+        }
+
+        public int Width
+        {
+            get
+            {
+                return width;
+            }
+            set
+            {
+                width = value;
+                Border.Width = width;
+            }
+        }
         public Color BackgroundColor { get; set; }
         public Texture2D BackgroundImage { get; set; }
 
+        public Border Border { get; set; }
+
         public Panel(GraphicsDevice graphicsDevice)
         {
-            Position = new Vector2(0, 0);
+            position = new Vector2(0, 0);
             BackgroundColor = Color.White;
             BackgroundImage = new Texture2D(graphicsDevice, 1, 1);
             BackgroundImage.SetData<Color>(new Color[] { Color.White });
+
+            Border = new Border(graphicsDevice);
+            Border.Position = Position;
+            Border.Width = Width;
+            Border.Heigth = Heigth;
         }
 
         public void Draw(Graphics graphics)
@@ -36,6 +80,8 @@ namespace engine
             graphics.SpriteBatch.Draw(BackgroundImage, destinationRectangle, BackgroundColor);
 
             graphics.SpriteBatch.End();
+
+            Border.Draw(graphics);
         }
     }
 }
