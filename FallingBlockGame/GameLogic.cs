@@ -182,6 +182,15 @@ namespace FallingBlockGame
         private void CalculateScore(int clearedRows)
         {
             score += (clearedRows + clearedRows - 1) * 100;
+
+            int limit = 0;
+            for (int i = 1; i <= Speed; i++)
+            {
+                limit += 1000 * i;
+            }
+
+            if (score >= limit && Speed < 9)
+                Speed++;
         }
 
         private void ClearFullRows()
