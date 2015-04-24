@@ -32,10 +32,10 @@ namespace engine
         }
         private void UpdateChildStates(GameTime gameTime)
         {
-            foreach (IGameState state in currentState.ChildStates)
+            foreach (KeyValuePair<string, IGameState> state in currentState.ChildStates)
             {
-                if (state.IsActive)
-                    state.Update(gameTime);
+                if (state.Value.IsActive)
+                    state.Value.Update(gameTime);
             }
         }
 
@@ -47,10 +47,10 @@ namespace engine
         }
         private void DrawChildStates(GameTime gameTime)
         {
-            foreach (IGameState state in currentState.ChildStates)
+            foreach (KeyValuePair<string, IGameState> state in currentState.ChildStates)
             {
-                if (state.IsActive)
-                    state.Draw(gameTime);
+                if (state.Value.IsActive)
+                    state.Value.Draw(gameTime);
             }
         }
 

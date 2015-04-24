@@ -24,7 +24,7 @@ namespace FallingBlockGame
         private List<List<GameObject>> nextShapes;
 
         public bool IsActive { get; set; }
-        public List<IGameState> ChildStates { get; set; }
+        public Dictionary<string, IGameState> ChildStates { get; set; }
 
         private Label score;
         private Panel scorePanel;
@@ -47,8 +47,9 @@ namespace FallingBlockGame
                 BLOCK_SIZE,
                 blockTextureAtlas);
 
-            ChildStates = new List<IGameState>();
-            ChildStates.Add(new GameOverState(game));
+            ChildStates = new Dictionary<string, IGameState>();
+            ChildStates.Add("gameover", new GameOverState(game));
+            ChildStates.Add("pause", new PauseState(game));
 
             timer = gameLogic.UpdateRate;
             keyDownTimer = MOVE_SPEED;
@@ -96,44 +97,50 @@ namespace FallingBlockGame
 
             if (!gameLogic.IsGameOver) 
             {
-                Movement move = Movement.None;
-                if (InputManager.KeyReleased(Keys.Down))
-                    move = Movement.Down;
-                else if (InputManager.KeyReleased(Keys.Left))
-                    move = Movement.Left;
-                else if (InputManager.KeyReleased(Keys.Right))
-                    move = Movement.Right;
-                else if (InputManager.KeyReleased(Keys.Up))
-                    move = Movement.Rotate;
 
-                if (InputManager.KeyboardState.IsKeyDown(Keys.Down))
-                    move = UpdateKeyHoldDownMovement(gameTime, Movement.Down);
-                else if (InputManager.KeyboardState.IsKeyDown(Keys.Left))
-                    move = UpdateKeyHoldDownMovement(gameTime, Movement.Left);
-                else if (InputManager.KeyboardState.IsKeyDown(Keys.Right))
-                    move = UpdateKeyHoldDownMovement(gameTime, Movement.Right);
+                if (InputManager.KeyPressed(Keys.Space) || ChildStates["pause"].IsActive)
+                    ChildStates["pause"].IsActive = true;
                 else
-                    keyDownTimer = MOVE_SPEED;
-
-                if (timer < 0)
                 {
-                    timer = gameLogic.UpdateRate;
-                    gameLogic.Update(Movement.Down);
-                }
+                    Movement move = Movement.None;
+                    if (InputManager.KeyReleased(Keys.Down))
+                        move = Movement.Down;
+                    else if (InputManager.KeyReleased(Keys.Left))
+                        move = Movement.Left;
+                    else if (InputManager.KeyReleased(Keys.Right))
+                        move = Movement.Right;
+                    else if (InputManager.KeyReleased(Keys.Up))
+                        move = Movement.Rotate;
 
-                gameLogic.Update(move);
-                score.Text = string.Format("Score: {0}", gameLogic.Score);
+                    if (InputManager.KeyboardState.IsKeyDown(Keys.Down))
+                        move = UpdateKeyHoldDownMovement(gameTime, Movement.Down);
+                    else if (InputManager.KeyboardState.IsKeyDown(Keys.Left))
+                        move = UpdateKeyHoldDownMovement(gameTime, Movement.Left);
+                    else if (InputManager.KeyboardState.IsKeyDown(Keys.Right))
+                        move = UpdateKeyHoldDownMovement(gameTime, Movement.Right);
+                    else
+                        keyDownTimer = MOVE_SPEED;
+
+                    if (timer < 0)
+                    {
+                        timer = gameLogic.UpdateRate;
+                        gameLogic.Update(Movement.Down);
+                    }
+
+                    gameLogic.Update(move);
+                    score.Text = string.Format("Score: {0}", gameLogic.Score);
+                }
             }
-            else if (!ChildStates.First().IsActive)
+            else if (!ChildStates["gameover"].IsActive)
             {
-                ChildStates.First().IsActive = true;
+                ChildStates["gameover"].IsActive = true;
             }
             else
             {
                 if (InputManager.IsAnyKeyPressed())
                 {
                     gameLogic.Restart();
-                    ChildStates.First().IsActive = false;
+                    ChildStates["gameover"].IsActive = false;
                 }
             }
         }
