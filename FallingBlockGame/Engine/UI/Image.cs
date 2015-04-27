@@ -7,7 +7,7 @@ using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Content;
 using engine;
 
-namespace FallingBlockGame.Engine.UI
+namespace engine
 {
     public class Image
     {        

@@ -13,6 +13,7 @@ namespace FallingBlockGame
     {
         private const int TIME = 3000;
         private const string NEXT_STATE = "gameplay";
+        private const string LOGO = "logo";
 
         public bool IsActive { get; set; }
         public Dictionary<string, IGameState> ChildStates { get; set; }
@@ -21,6 +22,7 @@ namespace FallingBlockGame
 
         private FallingBlockGame game;
         private GameStateManager gameStateManager;
+        private Image logo;
 
         public SplashState(FallingBlockGame game, GameStateManager gameStateManager)
         {
@@ -29,6 +31,10 @@ namespace FallingBlockGame
 
             this.game = game;
             this.gameStateManager = gameStateManager;
+            logo = new Image(game.Content, LOGO);
+            logo.Heigth = 120;
+            logo.Width = 300;
+            logo.Position = new Vector2(150, 200);
 
             timer = TIME;
         }
@@ -46,6 +52,7 @@ namespace FallingBlockGame
         public void Draw(GameTime gameTime)
         {
             game.RenderManager.ClearScreen(Color.Black);
+            logo.Draw(game.RenderManager.Graphics);
         }
     }
 }
