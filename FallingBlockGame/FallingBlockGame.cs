@@ -54,7 +54,8 @@ namespace FallingBlockGame
             gameStateManager = new GameStateManager((Game)this);
             gameStateManager.Add("gameplay", new GameplayState(this));
             gameStateManager.Add("splash", new SplashState(this, gameStateManager));
-            gameStateManager.ChangeState("splash");
+            gameStateManager.Add("mainmenu", new MainMenuState(this, gameStateManager));
+            gameStateManager.ChangeState("mainmenu");
 
             base.Initialize();
         }
