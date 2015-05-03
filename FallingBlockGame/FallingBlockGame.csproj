@@ -46,6 +46,8 @@
     <Compile Include="Engine\UI\Border.cs" />
     <Compile Include="Engine\UI\Image.cs" />
     <Compile Include="Engine\UI\Label.cs" />
+    <Compile Include="Engine\UI\Menu.cs" />
+    <Compile Include="Engine\UI\MenuItem.cs" />
     <Compile Include="Engine\UI\Panel.cs" />
     <Compile Include="FallingBlockGame.cs" />
     <Compile Include="Field.cs" />
@@ -122,6 +124,11 @@
     <Content Include="Content\test.xnb">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Content\font_20.xnb">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
