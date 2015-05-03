@@ -35,13 +35,28 @@ namespace FallingBlockGame
             SpriteFont font = game.Content.Load<SpriteFont>("font_20");
             menu = new Menu(font);
             menu.Position = new Vector2(50, 450);
-            menu.MenuItems.Add(new MenuItem("Start"));
-            menu.MenuItems.Add(new MenuItem("Exit"));
+            
+            MenuItem startMenuItem = new MenuItem("Start");
+            MenuItem exitMenuItem = new MenuItem("Exit");
+            startMenuItem.Click += startMenuItem_Click;
+            exitMenuItem.Click += exitMenuItem_Click;
+            menu.MenuItems.Add(startMenuItem);
+            menu.MenuItems.Add(exitMenuItem);
 
             gameTitle = new Image(game.Content, "gameTitle");
             gameTitle.Width = 500;
             gameTitle.Heigth = 120;
             gameTitle.Position = new Vector2(50, 150);
+        }
+
+        private void exitMenuItem_Click(object sender, EventArgs e)
+        {
+            game.Exit();
+        }
+
+        private void startMenuItem_Click(object sender, EventArgs e)
+        {
+            gameStateManager.ChangeState("gameplay");
         }
         
         public void Update(GameTime gameTime)
