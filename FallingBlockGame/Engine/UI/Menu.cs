@@ -25,8 +25,8 @@ namespace engine
             this.spriteFont = spriteFont;
             menuItems = new List<MenuItem>();
             selectedIndex = 0;
-            NormalColor = Color.Red;
-            SelectedColor = Color.Blue;
+            NormalColor = Color.White;
+            SelectedColor = Color.Red;
         }
 
         public void Update()

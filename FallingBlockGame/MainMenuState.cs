@@ -20,6 +20,7 @@ namespace FallingBlockGame
 
         private Texture2D Background;
         private Menu menu;
+        private Image gameTitle;
 
         public MainMenuState(FallingBlockGame game, GameStateManager gameStateManager)
         {
@@ -33,9 +34,14 @@ namespace FallingBlockGame
             
             SpriteFont font = game.Content.Load<SpriteFont>("font_20");
             menu = new Menu(font);
-            menu.Position = new Vector2(100, 350);
+            menu.Position = new Vector2(50, 450);
             menu.MenuItems.Add(new MenuItem("Start"));
             menu.MenuItems.Add(new MenuItem("Exit"));
+
+            gameTitle = new Image(game.Content, "gameTitle");
+            gameTitle.Width = 500;
+            gameTitle.Heigth = 120;
+            gameTitle.Position = new Vector2(50, 150);
         }
         
         public void Update(GameTime gameTime)
@@ -49,6 +55,7 @@ namespace FallingBlockGame
             game.RenderManager.Graphics.SpriteBatch.Draw(Background, new Vector2(0,0), new Rectangle(0, 0, 600, 700), Color.White);
             game.RenderManager.Graphics.SpriteBatch.End();
 
+            gameTitle.Draw(game.RenderManager.Graphics);
             menu.Draw(game.RenderManager.Graphics);
         }
     }
