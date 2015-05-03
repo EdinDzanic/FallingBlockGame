@@ -80,6 +80,7 @@
     <Compile Include="GameLogic.cs" />
     <Compile Include="GameOverState.cs" />
     <Compile Include="GameplayState.cs" />
+    <Compile Include="MainMenuState.cs" />
     <Compile Include="NextShapeGameObjectBuilder.cs" />
     <Compile Include="PauseState.cs" />
     <Compile Include="Program.cs" />
