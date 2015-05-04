@@ -4,6 +4,8 @@ using System.Linq;
 using System.Text;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
+using Microsoft.Xna.Framework.Audio;
+using Microsoft.Xna.Framework.Media;
 using engine;
 
 namespace FallingBlockGame
@@ -11,6 +13,7 @@ namespace FallingBlockGame
     public class MainMenuState : IGameState
     {
         private const string BACKGROUND = "menubackground";
+        private const string SONG = "song";
         
         private FallingBlockGame game;
         private GameStateManager gameStateManager;
@@ -21,6 +24,7 @@ namespace FallingBlockGame
         private Texture2D Background;
         private Menu menu;
         private Image gameTitle;
+        private Song song;
 
         public MainMenuState(FallingBlockGame game, GameStateManager gameStateManager)
         {
@@ -31,6 +35,7 @@ namespace FallingBlockGame
             ChildStates = new Dictionary<string, IGameState>();
 
             Background = game.Content.Load<Texture2D>(BACKGROUND);
+            song = game.Content.Load<Song>(SONG);
             
             SpriteFont font = game.Content.Load<SpriteFont>("font_20");
             menu = new Menu(font);
@@ -47,6 +52,9 @@ namespace FallingBlockGame
             gameTitle.Width = 500;
             gameTitle.Heigth = 120;
             gameTitle.Position = new Vector2(50, 150);
+
+            MediaPlayer.Play(song);
+            MediaPlayer.IsRepeating = true;
         }
 
         private void exitMenuItem_Click(object sender, EventArgs e)
