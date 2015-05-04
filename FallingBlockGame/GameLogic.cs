@@ -232,6 +232,53 @@ namespace FallingBlockGame
             }
         }
 
+        private bool CanBeRotated(List<Coordinate> rotatedBlocks)
+        {
+            foreach (var rotatedBlock in rotatedBlocks)
+            {
+                if (rotatedBlock.X < 0 || rotatedBlock.X >= FIELD_HEIGHT ||
+                    rotatedBlock.Y < 0 || rotatedBlock.Y >= FIELD_WIDTH)
+                {
+                    return false;
+                }
+                else if (Field.Grid[rotatedBlock.X][rotatedBlock.Y] != 0 &&
+                    !IsPartOfFallingBlocks(rotatedBlock.X, rotatedBlock.Y))
+                {
+                    return false;
+                }
+            }
+
+            return true;
+        }
+
+        private List<Coordinate> WallBump(List<Coordinate> blocks, int direction)
+        {
+            List<Coordinate> bumpedBlocks = new List<Coordinate>();
+
+            foreach (var block in blocks)
+            {
+                bumpedBlocks.Add(new Coordinate(block.X, block.Y + direction));
+            }
+
+            return bumpedBlocks;
+        }
+
+        private void RotateBlocks(List<Coordinate> rotatedBlocks)
+        {
+            int blockColor = Field.Grid[fallingBlocks.First().X][fallingBlocks.First().Y];
+            foreach (var block in fallingBlocks)
+            {
+                Field.Grid[block.X][block.Y] = 0;
+            }
+
+            foreach (var rotatedBlock in rotatedBlocks)
+            {
+                Field.Grid[rotatedBlock.X][rotatedBlock.Y] = blockColor;
+            }
+
+            fallingBlocks = rotatedBlocks;
+        }
+
         private void Rotate()
         {
             int xMin = int.MaxValue;
@@ -262,37 +309,24 @@ namespace FallingBlockGame
                 }
             }
 
-            bool canBeRotated = true;
-            foreach (var rotatedBlock in rotatedBlocks)
-            {
-                if (rotatedBlock.X < 0 || rotatedBlock.X >= FIELD_HEIGHT ||
-                    rotatedBlock.Y < 0 || rotatedBlock.Y >= FIELD_WIDTH)
-                {
-                    canBeRotated = false;
-                    break;
-                }
-                else if (Field.Grid[rotatedBlock.X][rotatedBlock.Y] != 0 &&
-                    !IsPartOfFallingBlocks(rotatedBlock.X, rotatedBlock.Y))
-                {
-                    canBeRotated = false;
-                    break;
-                }
-            }
+            bool canBeRotated = CanBeRotated(rotatedBlocks);
 
             if (canBeRotated)
             {
-                int blockColor = Field.Grid[fallingBlocks.First().X][fallingBlocks.First().Y];
-                foreach (var block in fallingBlocks)
-                {
-                    Field.Grid[block.X][block.Y] = 0;
-                }
+                RotateBlocks(rotatedBlocks);
+            }
+            else
+            {
+                // wall bump logic
+                List<Coordinate> bumpedLeft = WallBump(rotatedBlocks, -1);
+                canBeRotated = CanBeRotated(bumpedLeft);
+                if (canBeRotated)
+                    RotateBlocks(bumpedLeft);
 
-                foreach (var rotatedBlock in rotatedBlocks)
-                {
-                    Field.Grid[rotatedBlock.X][rotatedBlock.Y] = blockColor;
-                }
-
-                fallingBlocks = rotatedBlocks;
+                List<Coordinate> bumpedRight = WallBump(rotatedBlocks, 1);
+                canBeRotated = CanBeRotated(bumpedRight);
+                if (canBeRotated)
+                    RotateBlocks(bumpedRight);
             }
         }
 
