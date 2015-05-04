@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
+using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Audio;
 using Microsoft.Xna.Framework.Media;
 using engine;
@@ -35,7 +36,8 @@ namespace FallingBlockGame
             ChildStates = new Dictionary<string, IGameState>();
 
             Background = game.Content.Load<Texture2D>(BACKGROUND);
-            song = game.Content.Load<Song>(SONG);
+            song = game.Content.Load<Song>("song");
+
             
             SpriteFont font = game.Content.Load<SpriteFont>("font_20");
             menu = new Menu(font);
