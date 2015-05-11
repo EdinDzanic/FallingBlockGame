@@ -30,6 +30,9 @@ namespace FallingBlockGame
         private Label score;
         private Panel scorePanel;
 
+        private SoundEffect blockFall;
+        private SoundEffect lineClear;
+
         private double timer;
         private double keyDownTimer;
 
@@ -43,6 +46,9 @@ namespace FallingBlockGame
             Texture2D texture = game.Content.Load<Texture2D>(BLOCK_TEXTURE_ATLAS);
             TextureAtlas blockTextureAtlas = new TextureAtlas(texture, 2, 3);
 
+            blockFall = game.Content.Load<SoundEffect>("sfx_fall");
+            lineClear = game.Content.Load<SoundEffect>("sfx_lineClear");
+            
             fieldGameObjectBuilder = new FieldGameObjectBuilder(
                 gameLogic.Field,
                 BLOCK_SIZE,
@@ -105,7 +111,9 @@ namespace FallingBlockGame
                 {
                     Movement move = Movement.None;
                     if (InputManager.KeyReleased(Keys.Down))
+                    {
                         move = Movement.Down;
+                    }
                     else if (InputManager.KeyReleased(Keys.Left))
                         move = Movement.Left;
                     else if (InputManager.KeyReleased(Keys.Right))
@@ -129,6 +137,12 @@ namespace FallingBlockGame
                     }
 
                     gameLogic.Update(move);
+
+                    if (gameLogic.IsDown)
+                        blockFall.Play(1.0f, 0.0f, 0.0f);
+                    if (gameLogic.IsFullRow)
+                        lineClear.Play(0.5f, 0.0f, 0.0f);
+
                     score.Text = string.Format("Score: {0}", gameLogic.Score);
                 }
             }

@@ -48,6 +48,9 @@ namespace FallingBlockGame
         public int NextShapeType { get { return nextShapeType; } }
         private Random random = new Random();
 
+        public bool IsDown { get; set; }
+        public bool IsFullRow { get; set; }
+
         public GameLogic()
         {
             field = new Field(FIELD_HEIGHT, FIELD_WIDTH, 20, 20);
@@ -139,9 +142,14 @@ namespace FallingBlockGame
                 }
 
                 AddFallingBlocksToGrid(value);
+
+                IsDown = false;
+                IsFullRow = false;
             }
             else if (down == 1)
             {
+                IsDown = true;
+
                 fallingBlocks.Clear();
                 ClearFullRows();
                 CheckForGameOver();
@@ -217,7 +225,10 @@ namespace FallingBlockGame
             }
 
             if (numberOfFullRows > 0)
+            {
+                IsFullRow = true;
                 CalculateScore(numberOfFullRows);
+            }
         }
 
         private void MoveRowsDown(int row)
