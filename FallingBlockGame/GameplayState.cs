@@ -19,16 +19,17 @@ namespace FallingBlockGame
 
         private FallingBlockGame game;
         private FieldGameObjectBuilder fieldGameObjectBuilder;
-        private NextShapeGameObjectBuilder nextShapeGameObjectBuilder;
         private GameLogic gameLogic;
 
-        private List<List<GameObject>> nextShapes;
+        //private List<List<GameObject>> nextShapes;
+        private List<Texture2D> nextShapes;
 
         public bool IsActive { get; set; }
         public Dictionary<string, IGameState> ChildStates { get; set; }
 
         private Label score;
         private Panel scorePanel;
+        private Image nextShape;
 
         private SoundEffect blockFall;
         private SoundEffect lineClear;
@@ -71,18 +72,24 @@ namespace FallingBlockGame
             scorePanel.Heigth = 40;
             scorePanel.Width = 100;
 
-            nextShapeGameObjectBuilder = new NextShapeGameObjectBuilder(
-                new Vector2(400, 150),
-                gameLogic.blockTypes,
-                blockTextureAtlas,
-                BLOCK_SIZE);
+            //nextShapeGameObjectBuilder = new NextShapeGameObjectBuilder(
+            //    new Vector2(400, 150),
+            //    gameLogic.blockTypes,
+            //    blockTextureAtlas,
+            //    BLOCK_SIZE);
 
-            nextShapes = new List<List<GameObject>>();
-            for (int i = 0; i < gameLogic.blockTypes.Length; i++)
+            string shape = "shape";
+            nextShapes = new List<Texture2D>();
+            for (int i = 1; i <= gameLogic.blockTypes.Length; i++)
             {
-                nextShapeGameObjectBuilder.ShapeType = i;
-                nextShapes.Add(nextShapeGameObjectBuilder.CreateGameObjects());
+                nextShapes.Add(game.Content.Load<Texture2D>(shape + i));
             }
+            
+            nextShape = new Image(nextShapes[1]);
+            nextShape.ImageTexture = nextShapes[gameLogic.NextShapeType];
+            nextShape.Position = new Vector2(400, 300);
+            nextShape.Width = 96;
+            nextShape.Heigth = 128;
         }
 
         private Movement UpdateKeyHoldDownMovement(GameTime gameTime,  Movement movement)
@@ -144,6 +151,7 @@ namespace FallingBlockGame
                         lineClear.Play(0.5f, 0.0f, 0.0f);
 
                     score.Text = string.Format("Score: {0}", gameLogic.Score);
+                    nextShape.ImageTexture = nextShapes[gameLogic.NextShapeType];
                 }
             }
             else if (!ChildStates["gameover"].IsActive)
@@ -166,7 +174,9 @@ namespace FallingBlockGame
             List<GameObject> gameObjects = fieldGameObjectBuilder.CreateGameObjects();
 
             game.RenderManager.Draw(gameObjects);
-            game.RenderManager.Draw(nextShapes[gameLogic.NextShapeType]);
+
+            nextShape.ImageTexture = nextShapes[gameLogic.NextShapeType];
+            nextShape.Draw(game.RenderManager.Graphics);
 
             scorePanel.Draw(game.RenderManager.Graphics);
             score.Draw(game.RenderManager.Graphics);

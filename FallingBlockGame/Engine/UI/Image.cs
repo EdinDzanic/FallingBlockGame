@@ -40,10 +40,24 @@ namespace engine
             }
         }
 
+        public Texture2D ImageTexture {
+            get { return imageTexture; }
+            set
+            {
+                imageTexture = value;
+            }
+        }
+
         public Image(ContentManager contentManager, string imageFile)
         {
             this.imageFile = imageFile;
             imageTexture = contentManager.Load<Texture2D>(imageFile);
+        }
+
+        public Image(Texture2D texture)
+        {
+            imageTexture = texture;
+            imageFile = texture.Name;
         }
 
         public void Draw(Graphics graphics)
