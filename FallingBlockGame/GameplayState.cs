@@ -160,7 +160,7 @@ namespace FallingBlockGame
             }
             else
             {
-                if (InputManager.IsAnyKeyPressed())
+                if (InputManager.IsAnyKeyPressed() && !InputManager.LastKeyboardState.IsKeyDown(Keys.Down))
                 {
                     gameLogic.Restart();
                     ChildStates["gameover"].IsActive = false;
