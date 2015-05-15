@@ -146,9 +146,15 @@ namespace FallingBlockGame
                     gameLogic.Update(move);
 
                     if (gameLogic.IsDown)
+                    {
                         blockFall.Play(1.0f, 0.0f, 0.0f);
+                        gameLogic.IsDown = false;
+                    }
                     if (gameLogic.IsFullRow)
+                    {
                         lineClear.Play(0.5f, 0.0f, 0.0f);
+                        gameLogic.IsFullRow = false;
+                    }
 
                     score.Text = string.Format("Score: {0}", gameLogic.Score);
                     nextShape.ImageTexture = nextShapes[gameLogic.NextShapeType];
