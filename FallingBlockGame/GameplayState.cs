@@ -17,6 +17,11 @@ namespace FallingBlockGame
         private const int MOVE_SPEED = 100;
         private const string BLOCK_TEXTURE_ATLAS = "blocks";
 
+        private const int SCORE_X = 400;
+        private const int SCORE_Y = 70;
+        private const int SCORE_WIDTH = 140;
+        private const int SCORE_HEIGTH = 30;
+
         private FallingBlockGame game;
         private FieldGameObjectBuilder fieldGameObjectBuilder;
         private GameLogic gameLogic;
@@ -65,12 +70,12 @@ namespace FallingBlockGame
             score = new Label("Score: 0");
             score.Font = game.Content.Load<SpriteFont>("test");
             score.TextColor = Color.Black;
-            score.Position = new Vector2(400, 70);
+            score.Position = new Vector2(SCORE_X + 5, SCORE_Y + 5);
 
             scorePanel = new Panel(game.GraphicsDevice);
-            scorePanel.Position = new Vector2(400, 70);
-            scorePanel.Heigth = 40;
-            scorePanel.Width = 100;
+            scorePanel.Position = new Vector2(SCORE_X, SCORE_Y);
+            scorePanel.Heigth = SCORE_HEIGTH;
+            scorePanel.Width = SCORE_WIDTH;
 
             //nextShapeGameObjectBuilder = new NextShapeGameObjectBuilder(
             //    new Vector2(400, 150),
@@ -147,7 +152,7 @@ namespace FallingBlockGame
 
                     PlaySoundEffects();
 
-                    score.Text = string.Format("Score: {0}", gameLogic.Score);
+                    UpdateScore();
                     nextShape.ImageTexture = nextShapes[gameLogic.NextShapeType];
                 }
             }
@@ -163,6 +168,11 @@ namespace FallingBlockGame
                     ChildStates["gameover"].IsActive = false;
                 }
             }
+        }
+
+        private void UpdateScore()
+        {
+            score.Text = string.Format("Score: {0}", gameLogic.Score);
         }
 
         private void PlaySoundEffects()
