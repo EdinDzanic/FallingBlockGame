@@ -22,6 +22,9 @@ namespace FallingBlockGame
         private const int SCORE_WIDTH = 140;
         private const int SCORE_HEIGTH = 30;
 
+        private const int SPEED_X = SCORE_X;
+        private const int SPEED_Y = SCORE_Y + 50;
+
         private FallingBlockGame game;
         private FieldGameObjectBuilder fieldGameObjectBuilder;
         private GameLogic gameLogic;
@@ -34,6 +37,8 @@ namespace FallingBlockGame
 
         private Label score;
         private Panel scorePanel;
+        private Label speed;
+        private Panel speedPanel;
         private Image nextShape;
 
         private SoundEffect blockFall;
@@ -77,11 +82,15 @@ namespace FallingBlockGame
             scorePanel.Heigth = SCORE_HEIGTH;
             scorePanel.Width = SCORE_WIDTH;
 
-            //nextShapeGameObjectBuilder = new NextShapeGameObjectBuilder(
-            //    new Vector2(400, 150),
-            //    gameLogic.blockTypes,
-            //    blockTextureAtlas,
-            //    BLOCK_SIZE);
+            speed = new Label("Speed: 1");
+            speed.Font = game.Content.Load<SpriteFont>("test");
+            speed.TextColor = Color.Black;
+            speed.Position = new Vector2(SPEED_X + 5, SPEED_Y + 5);
+
+            speedPanel = new Panel(game.GraphicsDevice);
+            speedPanel.Position = new Vector2(SPEED_X, SPEED_Y);
+            speedPanel.Heigth = SCORE_HEIGTH;
+            speedPanel.Width = SCORE_WIDTH;
 
             string shape = "shape";
             nextShapes = new List<Texture2D>();
@@ -153,6 +162,7 @@ namespace FallingBlockGame
                     PlaySoundEffects();
 
                     UpdateScore();
+                    UpdateSpeed();
                     nextShape.ImageTexture = nextShapes[gameLogic.NextShapeType];
                 }
             }
@@ -173,6 +183,11 @@ namespace FallingBlockGame
         private void UpdateScore()
         {
             score.Text = string.Format("Score: {0}", gameLogic.Score);
+        }
+
+        private void UpdateSpeed()
+        {
+            speed.Text = string.Format("Speed: {0}", gameLogic.Speed);
         }
 
         private void PlaySoundEffects()
@@ -201,6 +216,9 @@ namespace FallingBlockGame
 
             scorePanel.Draw(game.RenderManager.Graphics);
             score.Draw(game.RenderManager.Graphics);
+
+            speedPanel.Draw(game.RenderManager.Graphics);
+            speed.Draw(game.RenderManager.Graphics);
         }
 
     }
