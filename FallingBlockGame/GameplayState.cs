@@ -25,6 +25,9 @@ namespace FallingBlockGame
         private const int SPEED_X = SCORE_X;
         private const int SPEED_Y = SCORE_Y + 50;
 
+        private const int NEXTSHAPE_X = SCORE_X;
+        private const int NEXTSHAPE_Y = SPEED_Y + 50;
+
         private FallingBlockGame game;
         private FieldGameObjectBuilder fieldGameObjectBuilder;
         private GameLogic gameLogic;
@@ -39,6 +42,7 @@ namespace FallingBlockGame
         private Panel scorePanel;
         private Label speed;
         private Panel speedPanel;
+        private Panel nextShapePanel;
         private Image nextShape;
 
         private SoundEffect blockFall;
@@ -92,6 +96,11 @@ namespace FallingBlockGame
             speedPanel.Heigth = SCORE_HEIGTH;
             speedPanel.Width = SCORE_WIDTH;
 
+            nextShapePanel = new Panel(game.GraphicsDevice);
+            nextShapePanel.Position = new Vector2(NEXTSHAPE_X, NEXTSHAPE_Y);
+            nextShapePanel.Heigth = 150;
+            nextShapePanel.Width = SCORE_WIDTH;
+
             string shape = "shape";
             nextShapes = new List<Texture2D>();
             for (int i = 1; i <= gameLogic.blockTypes.Length; i++)
@@ -101,7 +110,7 @@ namespace FallingBlockGame
             
             nextShape = new Image(nextShapes[1]);
             nextShape.ImageTexture = nextShapes[gameLogic.NextShapeType];
-            nextShape.Position = new Vector2(400, 300);
+            nextShape.Position = new Vector2(NEXTSHAPE_X + 22, NEXTSHAPE_Y + 11);
             nextShape.Width = 96;
             nextShape.Heigth = 128;
         }
@@ -211,14 +220,15 @@ namespace FallingBlockGame
 
             game.RenderManager.Draw(gameObjects);
 
-            nextShape.ImageTexture = nextShapes[gameLogic.NextShapeType];
-            nextShape.Draw(game.RenderManager.Graphics);
-
             scorePanel.Draw(game.RenderManager.Graphics);
             score.Draw(game.RenderManager.Graphics);
 
             speedPanel.Draw(game.RenderManager.Graphics);
             speed.Draw(game.RenderManager.Graphics);
+
+            nextShapePanel.Draw(game.RenderManager.Graphics);
+            nextShape.ImageTexture = nextShapes[gameLogic.NextShapeType];
+            nextShape.Draw(game.RenderManager.Graphics);
         }
 
     }
