@@ -12,7 +12,7 @@ namespace FallingBlockGame
     public class SplashState : IGameState
     {
         private const int TIME = 3000;
-        private const string NEXT_STATE = "gameplay";
+        private const string NEXT_STATE = "mainmenu";
         private const string LOGO = "logo";
 
         public bool IsActive { get; set; }
