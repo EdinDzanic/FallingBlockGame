@@ -19,6 +19,8 @@ namespace FallingBlockGame
         private const int FIELD_WIDTH = 10;
         private const int FIELD_HEIGHT = 22;
         private const double SPEED_RATE_INCREASE = 0.1;
+        private const int SPAWN_X = 0;
+        private const int SPAWN_Y = 3;
 
         public string[] blockTypes = new string[] {
             "11-11",
@@ -71,8 +73,8 @@ namespace FallingBlockGame
             nextShapeType = random.Next(0, blockTypes.Length);
             int color = random.Next(1, 5);
 
-            int row = 0;
-            int col = 0;
+            int row = SPAWN_X;
+            int col = SPAWN_Y;
             foreach (char c in blockTypes[currentShapeType])
             {
                 if (c != '-')
@@ -84,7 +86,7 @@ namespace FallingBlockGame
                 else
                 {
                     row++;
-                    col = 0;
+                    col = SPAWN_Y;
                 }
             }
 
