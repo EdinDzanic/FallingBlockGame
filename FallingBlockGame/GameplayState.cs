@@ -17,6 +17,8 @@ namespace FallingBlockGame
         private const int MOVE_SPEED = 100;
         private const string BLOCK_TEXTURE_ATLAS = "blocks";
 
+        private const string BACKGROUND = "menubackground";
+
         private const int SCORE_X = 400;
         private const int SCORE_Y = 70;
         private const int SCORE_WIDTH = 140;
@@ -44,6 +46,8 @@ namespace FallingBlockGame
         private Panel speedPanel;
         private Panel nextShapePanel;
         private Image nextShape;
+        private Texture2D Background;
+        private Border fieldBorder;
 
         private SoundEffect blockFall;
         private SoundEffect lineClear;
@@ -76,6 +80,8 @@ namespace FallingBlockGame
             timer = gameLogic.UpdateRate;
             keyDownTimer = MOVE_SPEED;
 
+            Background = game.Content.Load<Texture2D>(BACKGROUND);
+
             score = new Label("Score: 0");
             score.Font = game.Content.Load<SpriteFont>("test");
             score.TextColor = Color.Black;
@@ -100,6 +106,12 @@ namespace FallingBlockGame
             nextShapePanel.Position = new Vector2(NEXTSHAPE_X, NEXTSHAPE_Y);
             nextShapePanel.Heigth = 150;
             nextShapePanel.Width = SCORE_WIDTH;
+
+            fieldBorder = new Border(game.GraphicsDevice);
+            fieldBorder.Position = new Vector2(gameLogic.Field.X, gameLogic.Field.Y);
+            fieldBorder.Width = BLOCK_SIZE * gameLogic.Field.Grid[0].Length;
+            fieldBorder.Heigth = BLOCK_SIZE * (gameLogic.Field.Grid.Length - 2);
+            fieldBorder.BorderColor = Color.White;
 
             string shape = "shape";
             nextShapes = new List<Texture2D>();
@@ -215,10 +227,14 @@ namespace FallingBlockGame
 
         public void Draw(GameTime gameTime)
         {
-            game.RenderManager.ClearScreen(Color.CornflowerBlue);
+            game.RenderManager.Graphics.SpriteBatch.Begin(SpriteSortMode.Deferred, null, SamplerState.LinearWrap, null, null);
+            game.RenderManager.Graphics.SpriteBatch.Draw(Background, new Vector2(0, 0), new Rectangle(0, 0, 600, 700), Color.White);
+            game.RenderManager.Graphics.SpriteBatch.End();
+
             List<GameObject> gameObjects = fieldGameObjectBuilder.CreateGameObjects();
 
             game.RenderManager.Draw(gameObjects);
+            fieldBorder.Draw(game.RenderManager.Graphics);
 
             scorePanel.Draw(game.RenderManager.Graphics);
             score.Draw(game.RenderManager.Graphics);

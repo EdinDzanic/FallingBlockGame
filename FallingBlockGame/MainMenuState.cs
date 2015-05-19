@@ -37,7 +37,6 @@ namespace FallingBlockGame
 
             Background = game.Content.Load<Texture2D>(BACKGROUND);
             song = game.Content.Load<Song>("song");
-
             
             SpriteFont font = game.Content.Load<SpriteFont>("font_20");
             menu = new Menu(font);
